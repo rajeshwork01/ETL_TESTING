@@ -1,0 +1,351 @@
+-- SQL Conditional Functions – Scenario
+
+-- Scenario 1
+-- A training institute wants to generate a student result report,
+-- Students who score 50 or above should be displayed as "Pass", and students scoring below 50 
+-- should be displayed as "Fail". 
+-- Write a SQL query to generate the report;  
+
+CREATE DATABASE Conditional_Functions;
+
+USE Conditional_Functions;
+
+CREATE TABLE STUDENT(
+STD_ID INT,
+STD_NAME VARCHAR(100),
+COURSE VARCHAR(50),
+MARKS INT);
+
+INSERT INTO STUDENT(STD_ID,STD_NAME,COURSE,MARKS)
+VALUES(101,'RAVI','SQL',85),
+(102,'JOHN','PYTHON',45),
+(103,'MEENA','POWER BI',70),
+(104,'DAVID','SQL',30),
+(105,'ALICE','PYTHON',92),
+(106,'ARUN','DE',60),
+(107,'CEO','DA',70),
+(108,'DVD','BCA',30),
+(109,'WWE','WRESTLING',49),
+(110,'CM','BCOM',20);
+
+SELECT * FROM student;
+
+SELECT STD_id,STD_NAME,COURSE,MARKS,IF(MARKS >= 50, 'PASS','FAIL') AS FINAL_RESULT FROM STUDENT;
+
+-- Scenario 
+-- The HR department wants to identify employees eligible for a yearly bonus. 
+-- Employees with a salary of ₹60,000 or more should be displayed as "Bonus Eligible"; all 
+-- others should be displayed as "Not Eligible". 
+-- Write the SQL query.
+
+USE Conditional_Functions;
+
+CREATE TABLE Employee(
+EMP_ID INT,
+EMP_NAME VARCHAR(100),
+DEPARTMENT VARCHAR(50),
+SALARY DECIMAL(10,2));
+
+INSERT INTO Employee(EMP_ID,EMP_NAME,DEPARTMENT,SALARY)
+VALUES(101,'RAVI','SQL',85000.90),
+(102,'JOHN','PYTHON',45000.55),
+(103,'MEENA','POWER BI',70000.88),
+(104,'DAVID','SQL',30000.11),
+(105,'ALICE','PYTHON',92000.32),
+(106,'ARUN','DE',60000.86),
+(107,'CEO','DA',70000.11),
+(108,'DVD','BCA',30000.20),
+(109,'WWE','WRESTLING',49000.20),
+(110,'CM','BCOM',20000.00);
+
+SELECT EMP_ID,EMP_NAME,DEPARTMENT,SALARY,
+CASE WHEN SALARY >= 60000 THEN 'BONUS ELIBIBLE'
+ELSE 'Not Eligible' END AS BONUS_STATUS
+FROM Employee;
+
+-- An online shopping company wants to classify customers based on their total purchase amount. 
+-- Customers meeting the company's purchase criteria should be displayed as "Premium 
+-- Customer", otherwise display "Regular Customer". 
+-- Write the SQL query.
+
+USE Conditional_Functions;
+
+CREATE TABLE Customer(
+COSTOMER_ID INT,
+COSTOMER_NAME VARCHAR(100),
+CITY VARCHAR(50),
+PURCHASE_AMOUNT DECIMAL(10,2));
+
+INSERT INTO Customer(COSTOMER_ID,COSTOMER_NAME,CITY,PURCHASE_AMOUNT)
+VALUES(101,'RAVI','CHENNAI',85000.90),
+(102,'JOHN','MADURAI',45000.55),
+(103,'MEENA','PANDICHEY',70000.88),
+(104,'DAVID','EURODE',30000.11),
+(105,'ALICE','MEDAVAKKAM',92000.32),
+(106,'ARUN','THANI',60000.86),
+(107,'CEO','NAMAKAL',70000.11),
+(108,'DVD','KADALUR',30000.20),
+(109,'WWE','OOTY',49000.20),
+(110,'CM','USA',20000.00),
+(110,'AK','AUSTRALIA',80000.00),
+(111,'DK','AMBATUR',20000.00),
+(112,'CM','DUBAI',200000.00);	
+
+SELECT COSTOMER_ID,COSTOMER_NAME,CITY,PURCHASE_AMOUNT,
+CASE 
+WHEN PURCHASE_AMOUNT >= 50000 THEN 'PREMIUM_CUSTOMER'
+ELSE 'REGULAR_CUSTOMER' END	 AS CUSTOMER_STATUS
+FROM Customer;
+
+-- Scenario 
+-- An inventory management system wants to display the stock status of every product. 
+-- Products satisfying the company's stock condition should display "In Stock", otherwise display 
+-- "Out of Stock". 
+-- Write the SQL query.
+
+USE Conditional_Functions;
+
+CREATE TABLE Product
+(
+PRODUCT_ID INT,
+PRODUCT_NAME VARCHAR(100),
+CATEGORY VARCHAR(50),
+STOCK_QUANTITY INT);
+
+INSERT INTO Product(PRODUCT_ID,PRODUCT_NAME,CATEGORY,STOCK_QUANTITY)
+VALUES(101,'PHONE','ELECTRONICS',90),
+(102,'KEYBOART','ELECTRONICS',0),
+(103,'CHARGER','ELECTRONICS',88),
+(104,'TV','ELECTRONICS',30000.0),
+(105,'SPEAKER','ELECTRONICS',32),
+(106,'PEN','STATIONARY',0),
+(107,'CHAIR','FURNITURE',11),
+(108,'AC','ELECTRONICS',0),
+(109,'REMOTE','ELECTRONICS',49),
+(110,'BIKE','BYCYLE',0),
+(111,'CYCLE','BYCYLE',80);
+
+SELECT PRODUCT_ID,PRODUCT_NAME,CATEGORY,STOCK_QUANTITY,
+CASE WHEN STOCK_QUANTITY > 0
+THEN 'IN_STOCK' 
+ELSE 'OUT OF STOCk'
+END AS STOCK_STATUS
+FROM Product;
+
+-- The HR department wants to classify employee performance into multiple levels based on their 
+-- performance score. 
+-- Generate the report according to the company's performance policy. 
+-- Write the SQL query. 
+
+USE Conditional_Functions;
+
+CREATE TABLE Employee_Performance
+(
+EMP_ID INT,
+EMP_NAME VARCHAR(100),
+PERFORMANCE_SCORE INT,
+DEPARTMENT VARCHAR(50));
+
+INSERT INTO Employee_Performance(EMP_ID,EMP_NAME,PERFORMANCE_SCORE,DEPARTMENT)
+VALUES(101,'RAJESH',90,'ETL'),
+(102,'CHANDRU',60,'ETL_DEV'),
+(103,'KUMAR',22,'TRAINER'),
+(104,'VIJAY',100,'CM'),
+(105,'AJITH',32,'DANCER'),
+(106,	'DHANUSH',50,'SINGER'),
+(107,'ADHARVA',88,'BODY BUILDER'),
+(108,'SURYA',80,'GOD MODE'),
+(109,'AARYA',49,'BOXER'),
+(110,'VISHAl',67,'ACTING'),
+(111,'SANTHANAM',44,'COMEDY'),
+(112,'VISHNU VISHAl',80,'GATTA KUSTHI 2');
+
+SELECT EMP_ID,EMP_NAME,PERFORMANCE_SCORE,DEPARTMENT,
+CASE
+WHEN PERFORMANCE_SCORE >= 90 THEN 'EXCELENT'
+WHEN PERFORMANCE_SCORE >= 60 THEN 'VERY_GOOD'
+WHEN PERFORMANCE_SCORE >= 50 THEN 'GOOD'
+WHEN PERFORMANCE_SCORE >= 40 THEN 'AVERAGE'
+ELSE 'NEED_IMPROVEMENT' END AS PERFORMANCE_LEVEL
+FROM Employee_Performance;
+
+-- A university wants to classify students into different scholarship categories based on their 
+-- semester marks. 
+-- Generate the scholarship report according to the university's scholarship rules.
+-- Write the SQL query. 
+
+USE Conditional_Functions;
+
+CREATE TABLE STUDENT1(
+STD_ID INT,
+STD_NAME VARCHAR(100),
+COURSE VARCHAR(50),
+MARKS INT);
+
+INSERT INTO STUDENT(STD_ID,STD_NAME,COURSE,MARKS)
+VALUES(101,'RAVI','SQL',95),
+(102,'JOHN','PYTHON',45),
+(103,'MEENA','POWER BI',90),
+(104,'DAVID','SQL',30),
+(105,'ALICE','PYTHON',92),
+(106,'ARUN','DE',60),
+(107,'CEO','DA',70),
+(108,'DVD','BCA',30),
+(109,'WWE','WRESTLING',49),
+(110,'CM','BCOM',20),
+(111,'WWE','WRESTLING',49),
+(112,'CM','BCOM',20);
+
+SELECT STD_ID,STD_NAME,COURSE,MARKS,
+CASE
+WHEN MARKS >= 90 THEN '3 YEARS SCHOLARSHIP'
+WHEN MARKS >= 70 THEN '2 YEARS SCHOLARSHIP'
+WHEN MARKS >= 60 THEN '1 YEARS SCHOLARSHIP'
+WHEN MARKS >= 40 THEN '1 SEMESTER SCHOLARSHIP'
+ELSE 'NO SCHOLARSHIP' END AS 'SCHOLARSHIP_CATEGORIES'
+FROM STUDENT;
+
+USE Conditional_Functions;
+
+CREATE TABLE Loan_Application(
+APPLICATION_ID INT,
+CUSTOMER_NAME VARCHAR(100),
+MONTHLY_INCOME DECIMAL(10,2),
+LOAN_AMOUNT DECIMAL(10,2));
+
+INSERT INTO Loan_Application(APPLICATION_ID,CUSTOMER_NAME,MONTHLY_INCOME,LOAN_AMOUNT)
+VALUES(1,'RAVI',130000.98,500000.00),
+(2,'JOHN',85000.98,500000.00),
+(3,'MEENA',64000.98,250000.00),
+(4,'DAVID',45000.78,150000.00),
+(5,'ALICE',150000.18,800000.00),
+(6,'ARUN',78000.58,400000.00),
+(7,'CEO',55000.78,200000.00),
+(8,'DVD',38000.00,100000.00),
+(9,'WWE',95000.10,450000.00),
+(10,'CM',105000.60,600000.00);
+
+SELECT APPLICATION_ID,CUSTOMER_NAME,MONTHLY_INCOME,LOAN_AMOUNT,
+CASE
+WHEN MONTHLY_INCOME >= 100000 THEN 'LOAN APPROVED'
+WHEN MONTHLY_INCOME >= 75000 THEN 'PROCESS IN REVIEW'
+WHEN MONTHLY_INCOME >= 50000 THEN 'WAITING FROM VERIFICATION'
+ELSE 'REJECTED' END AS 'LOAN_REPORT'
+FROM Loan_Application;
+
+-- An e-commerce company wants to classify products into different discount categories based on 
+-- their selling price. 
+-- Generate the discount category report according to the company's pricing policy. 
+-- Write the SQL query.
+
+USE Conditional_Functions;
+
+CREATE TABLE Product1(
+PRODUCT_ID INT,
+PRODUCT_NAME VARCHAR(100),
+CATEGARY VARCHAR(50),
+PRICE DECIMAL(10,2));
+
+INSERT INTO Product1(PRODUCT_ID,PRODUCT_NAME,CATEGARY,PRICE)
+VALUES(1,'Laptop','ELECTRONICS',5000.00),
+(2,'Smartphone','ELECTRONICS',50000.00),
+(3,'TABLE','FURNITURE',25000.00),
+(4,'CHAIR','FURNITURE',15000.00),
+(5,'MOUSE','ELECTRONICS',80000.00),
+(6,'TV','ELECTRONICS',40000.00),
+(7,'AC','ELECTRONICS',20000.00),
+(8,'FRIDGE','ELECTRONICS',9000.00),
+(9,'TV REMOTE','ELECTRONICS',45000.00),
+(10,'BED','FURNITURE',60000.00),
+(11,'BIKE','BY_CYCLE',55000.00),
+(12,'CYCLE','BY_CYCLE',78000.00),
+(13,'WATER BOTTLE','STATIONARY',25000.00),
+(14,'TYRE','LATHER',1000.00),
+(15,'PEN','STATIONARY',80000.00);
+
+SELECT PRODUCT_ID,PRODUCT_NAME,CATEGARY,PRICE,
+CASE
+WHEN PRICE >= 50000 THEN '50%'
+WHEN PRICE >= 30000 THEN '25%'
+WHEN PRICE >= 20000 THEN '20%'
+ELSE 'NO_DISCOUNT' END AS 'DISCOUNT_CATEGARY'
+FROM Product1;
+
+-- A hospital wants to categorize patients based on their health score into different treatment 
+-- priority levels. 
+-- Generate the patient priority report according to the hospital's treatment policy. 
+-- Write the SQL query.
+
+ USE Conditional_Functions;
+
+CREATE TABLE Patient(
+PATIENT_ID INT,
+PATIENT_NAME VARCHAR(100),
+AGE INT,
+HEALTH_SCORE INT);
+
+INSERT INTO Patient(PATIENT_ID,PATIENT_NAME,AGE,HEALTH_SCORE)
+VALUES(1,'AA',88,92),
+(2,'BB',45,84),
+(3,'CC',22,67),
+(4,'DD',56,45),
+(5,'EE',12,95),
+(6,'FF',90,78),
+(7,'GG',0,58),
+(8,'HH',48,30),
+(9,'II',88,88),
+(10,'JJ',67,72),
+(11,'KK',6,97),
+(12,'LL',9,49);
+
+SELECT PATIENT_ID,PATIENT_NAME,AGE,HEALTH_SCORE,
+CASE
+WHEN HEALTH_SCORE >= 90 THEN 'HIGH PRIORITY'
+WHEN HEALTH_SCORE >= 60 THEN 'NORMAL PRIORITY'
+WHEN HEALTH_SCORE >= 50 THEN 'LOW PRIORITY'
+ELSE 'CRITICAL PRIORITY' END AS 'TREATMENT_PRIORITY'
+FROM Patient;
+
+-- The Finance department wants to classify employees into different salary bands based on their 
+-- monthly salary. 
+-- Generate the salary band report according to the company's salary classification policy. 
+-- Write the SQL query.
+ 
+ USE Conditional_Functions;
+
+CREATE TABLE Employee1(
+EMP_ID INT,
+EMP_NAME VARCHAR(100),
+DEPARTMENT VARCHAR(50),
+SALARY DECIMAL(10,2));
+
+INSERT INTO Employee1(EMP_ID,EMP_NAME,DEPARTMENT,SALARY)
+VALUES(1,'AA','HR',92000.00),
+(2,'BB','HR',84000.00),
+(3,'CC','MANAGER',7000.00),
+(4,'DD','TEACHER',45000.00),
+(5,'EE','DANCER',5000.00),
+(6,'FF','ACTER',78000.00),
+(7,'GG','HR',58000.00),
+(8,'HH','IT',3000.00),
+(9,'II','DEVELOPER',88000.00),
+(10,'JJ','CODING',72000.00),
+(11,'KK','BILLING',97000.00),
+(12,'LL','ANALIST',4000.00),
+(13,'MM','TL',200.00),
+(14,'NN','QC',9999.00),
+(15,'OO','ATL',49000.00);
+
+SELECT EMP_ID,EMP_NAME,DEPARTMENT,SALARY,
+CASE
+WHEN SALARY >= 90000 THEN 'HIGH SALARY'
+WHEN SALARY >= 60000 THEN 'HIGHER-MIDDLE SALARY'
+WHEN SALARY >= 40000 THEN 'MIDDLE SALARY'
+ELSE 'LOW SALARY' END AS 'SALARY_BAND'
+FROM Employee1;
+
+
+SELECT * FROM Employee1;
+
+
+
